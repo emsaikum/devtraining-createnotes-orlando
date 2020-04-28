@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[function() {
+  /* widget controller */
+  var c = this;
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css/>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id>incident_list</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {
+  
+}]]></link>
+        <name>Incident List</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+    /* populate the 'data' object */
+    /* e.g., data.table = $sp.getValue('table'); */
+    data.incList = [];
+    var inc = new GlideRecord("incident");
+    inc.addActiveQuery();
+    inc.addEncodedQuery("caller_idDYNAMIC90d1921e5f510100a9ad2572f2b477fe");
+    inc.query();
+    while (inc.next()) {
+        var incObj = {};
+        incObj.number = inc.getValue('number');
+        incObj.short_description = inc.getValue("short_description");
+        data.incList.push(incObj);
+    }
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>saikumar</sys_created_by>
+        <sys_created_on>2020-04-27 06:40:22</sys_created_on>
+        <sys_id>19de9b6bdb549010df2da455ca9619f8</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_name>Incident List</sys_name>
+        <sys_package display_value="CreateNotes" source="x_snc_createnotes">df5fd9a5090232007f44e1046c8ff69f</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="CreateNotes">df5fd9a5090232007f44e1046c8ff69f</sys_scope>
+        <sys_update_name>sp_widget_19de9b6bdb549010df2da455ca9619f8</sys_update_name>
+        <sys_updated_by>saikumar</sys_updated_by>
+        <sys_updated_on>2020-04-27 06:52:37</sys_updated_on>
+        <template><![CDATA[<div class="panel panel-default">
+  <div class="panel-heading clearfix">
+    <h3 class="panel-title pull-left">
+      ${Incidents}
+    </h3>
+  </div>
+  <div class="list-group">
+    <a class="list-group-item" ng-repeat="rec in data.incList">
+      <h4 class="list-group-item-heading">
+      ${Number is : }{{rec.number}}
+      </h4>
+      <p class="list-group-item-text">
+       ${Short Description is : }{{rec.short_description}}
+      </p>
+    </a>
+  </div>
+</div>]]></template>
+    </sp_widget>
+</record_update>
